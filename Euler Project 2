@@ -1,0 +1,20 @@
+a = 1
+b = 1
+c = 0
+
+while True:
+    if a <= 4000000:
+        a=a+b
+        print("fib term "+str(a))
+
+    if (a % 2) == 0:
+        c=c+a
+        print("sum "+str(c))
+
+    if b <= 4000000:
+        b = b + a
+        print("fib term " + str(b))
+
+    if (b % 2) == 0:
+        c = c + b
+        print("sum " + str(c))
