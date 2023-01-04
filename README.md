@@ -1,5 +1,5 @@
 # projecttemplate
 
-Group Members:
+Group Members: Nico Stuart
 
-Project idea:
+Project idea: Work through Project Euler problems in Python. Will determine pace after I do some problems.
