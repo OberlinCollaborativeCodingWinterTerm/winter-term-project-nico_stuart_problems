@@ -1,0 +1,11 @@
+a = 0
+b = 0
+
+while (a < 999):
+    a = a + 1
+    if (a % 3) == 0:
+        b = b + a
+    elif (a % 5) == 0:
+        b = b + a
+    print(a)
+    print("total sum " + str(b))
