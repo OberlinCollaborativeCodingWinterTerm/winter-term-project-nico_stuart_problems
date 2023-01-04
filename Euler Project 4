@@ -1,0 +1,10 @@
+numset = []
+
+for b in range(999, 0, -1):
+    for x in range(999, 0, -1):
+        a=x*b
+        if len(str(a)) == 6:
+            if str(a)[0] == str(a)[5] and str(a)[1] == str(a)[4] and str(a)[2] == str(a)[3]:
+                numset.append(a)
+                numset=sorted(numset)
+                print(numset[len(numset)-1])
