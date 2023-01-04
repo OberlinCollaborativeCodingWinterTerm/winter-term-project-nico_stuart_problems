@@ -1,0 +1,6 @@
+num = 600851475143
+
+for x in range(2, num):
+    while num % x == 0:
+        num = num / x
+        print(x)
