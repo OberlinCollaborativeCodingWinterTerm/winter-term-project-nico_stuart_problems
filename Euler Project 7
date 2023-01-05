@@ -1,0 +1,20 @@
+#less effecient than it could be
+
+def primecheck(x):
+    if x == 1 or x==0:
+        return False
+    for a in range (2, x-1):
+        if x%a == 0:
+            return False
+    return True
+
+checknum=0
+prime_list=[]
+
+while True:
+    checknum=checknum+1
+    if primecheck(checknum) == True:
+        prime_list.append(checknum)
+        if len(prime_list) == 10001:
+            print(prime_list[10000])
+            break
