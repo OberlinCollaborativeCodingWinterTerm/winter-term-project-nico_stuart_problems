@@ -1,0 +1,17 @@
+import re
+
+myCalories=open('/Users/nicostuart/Documents/Calories.txt', 'r').read()
+myCalories=myCalories.split("\n\n")
+for x in range(0,len(myCalories)):
+    myCalories[x]=myCalories[x].split("\n")
+
+highcal=0
+
+
+for x in range(0,len(myCalories)):
+    totalcal = 0
+    for y in range(0,len(myCalories[x])):
+        totalcal+=int(myCalories[x][y])
+    if totalcal > highcal:
+        highcal=totalcal
+print(highcal)
