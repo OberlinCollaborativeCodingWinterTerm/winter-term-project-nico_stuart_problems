@@ -1,0 +1,21 @@
+import re
+totalscore=0
+
+RPS=open('/Users/nicostuart/Documents/RPS.txt', 'r').read()
+RPS=RPS.split("\n")
+for round in RPS:
+    roundscore = 0
+    if round[2] == 'X':
+        roundscore += 1
+    elif round[2] == 'Y':
+        roundscore += 2
+    else:
+        roundscore += 3
+    if (round[0] == 'A' and round[2] == 'X') or (round[0]=='B' and round[2]=='Y') or (round[0]=='C' and round[2]=='Z'):
+        #tie
+        roundscore+=3
+    elif (round[0]=='A' and round[2]=='Y') or (round[0]=='B' and round[2]=='Z') or (round[0]=='C' and round[2]=='X'):
+        #win
+        roundscore+=6
+    totalscore+=roundscore
+print(totalscore)
