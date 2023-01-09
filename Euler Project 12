@@ -1,0 +1,21 @@
+import math
+
+def factorize(num):
+    factorlist=[]
+    for factor in range(1,int(math.sqrt(num))):
+        if num%factor==0:
+            factorlist.append(factor)
+            if num//factor!=num:
+                factorlist.append(num//factor)
+    factorlist.append(num)
+    return(set(factorlist))
+
+trianglenumber=1
+x=2
+
+while True:
+    trianglenumber+=x
+    x+=1
+    if len(factorize(trianglenumber)) > 500:
+        print(trianglenumber)
+        break
