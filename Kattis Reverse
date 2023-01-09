@@ -1,0 +1,7 @@
+nums=[]
+
+for _ in range(int(input())):
+    nums.append(int(input()))
+    
+for i in range(-1, -len(nums)-1, -1):
+    print(nums[i])
