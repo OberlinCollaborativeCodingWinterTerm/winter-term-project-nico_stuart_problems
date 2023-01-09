@@ -1,0 +1,21 @@
+import re
+import string
+
+rucksacks = open('/Users/nicostuart/Documents/rucksacks.txt', 'r').read().split("\n")
+score = 0
+
+for i in range(0,len(rucksacks),3):
+    sackset=[]
+    sackset.append(list(rucksacks[i]))
+    sackset.append(list(rucksacks[i+1]))
+    sackset.append(list(rucksacks[i+2]))
+    for item in sackset[0]:
+        if item in sackset[1] and item in sackset[2]:
+            if not str(item).islower():
+                score += 26
+            for letter in range(0, 26):
+                if (str(item[0]).lower()) == list(string.ascii_lowercase)[letter].lower():
+                    score += letter + 1
+            break
+
+print(score)
