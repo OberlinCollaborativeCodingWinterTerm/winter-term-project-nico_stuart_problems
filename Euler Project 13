@@ -1,0 +1,7 @@
+nums = open('/Users/nicostuart/Documents/ints.txt', 'r').read().split("\n")
+total=0
+for i in nums:
+    total=total+int(i)
+print(total)
+
+#that was easy! Maybe harder with a computer from two decades ago? 
