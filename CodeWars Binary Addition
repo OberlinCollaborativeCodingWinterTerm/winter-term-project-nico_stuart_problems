@@ -1,0 +1,11 @@
+import math
+def add_binary(a,b):
+    c=a+b
+    binary=[]
+    for i in range(math.floor(math.log(c,2))+1,0,-1):
+        if(2**(i-1)) <= c:
+            binary.append(str(1))
+            c-=2**(i-1)
+        else:
+            binary.append(str(0))
+    return ''.join(binary)
