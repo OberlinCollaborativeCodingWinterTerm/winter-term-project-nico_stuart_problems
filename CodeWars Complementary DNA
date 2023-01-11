@@ -1,0 +1,13 @@
+def DNA_strand(dna):
+    compdna=list(dna)
+    for i in range(0,len(compdna)):
+        print(compdna[i])
+        if compdna[i] == 'A':
+            compdna[i] = 'T'
+        elif compdna[i] == 'T':
+            compdna[i] = 'A'
+        elif compdna[i] == 'G':
+            compdna[i] = 'C'
+        elif compdna[i] == 'C':
+            compdna[i] = 'G'
+    return(''.join(compdna))
