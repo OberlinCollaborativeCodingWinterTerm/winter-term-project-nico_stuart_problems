@@ -1,0 +1,11 @@
+import math
+
+blocks=int(input())
+layers=0
+
+for i in range(1,math.ceil(math.sqrt(blocks)),2):
+    if i**2 <= blocks:
+        blocks=blocks-i**2
+        layers=layers+1
+
+print(layers)
