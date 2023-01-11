@@ -1,0 +1,52 @@
+# I don't know anything about cryptography but I thought this would make a fun little project. I also know this isn't technically considered hashing, as it needs both a phrase and a key, but still just a good way to build general pytohn skill.
+
+import string
+import statistics
+import math
+
+
+
+def passtokey(password):
+    password=list(password)
+    key = []
+
+    # turns a password into a list of its character's ascii values
+    for i in password:
+        if i in list(string.ascii_uppercase) or i in list(string.ascii_lowercase) or i in list(string.punctuation):
+            key.insert(ord(i)%len(key) if len(key) != 0 else 1, ord(i))
+        else:
+            key.insert(ord(i)%len(key) if len(key) != 0 else 1, ord(i))
+
+    # algorithmically extends the length of the list to 32
+    while len(key) < 32:
+        if math.floor(key[1] * key[-1] / (statistics.mean(key))) >= 128:
+            t = math.floor(key[1] * key[-1] / (statistics.mean(key))) % 128
+        else:
+            t = math.floor(key[1] * key[-1] / (statistics.mean(key)))
+        if t == key[-1]:
+            t = key[2]
+        key.append(t)
+
+    # algorithmically removes items from the list until it is at 32
+    while len(key) > 32:
+        key.remove(key[math.floor(key[1] * key[-1] / (statistics.mean(key))) % len(key)])
+
+    return key
+
+
+def hash(phrase, key):
+    phrase = list(phrase)
+    #"hashes"
+    for i in range(0, len(phrase)):
+        if (ord(phrase[i]) * key[-(i % 32)] % 128) != 10:
+            phrase[i] = chr((ord(phrase[i]) * key[-(i % 32)]) % 64+33)
+
+    #"selts"
+    for i in range(0, sorted(key)[-1]):
+        if i != 10:
+            phrase.insert(key[-2] % len(phrase), chr(i%64+33))
+    return("".join(phrase))
+
+
+
+print(hash("Hi, I'm Nico", passtokey("91283nn!!")))
