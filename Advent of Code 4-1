@@ -1,0 +1,17 @@
+count=0
+assignments = open('/Users/nicostuart/Documents/elfassign.txt', 'r').read().split("\n")
+
+for i in assignments:
+    i=str(i).split(',')
+    assignment1=[]
+    assignment2=[]
+    for j in (int(i[0].split('-')[0]), int(i[0].split('-')[1])):
+        assignment1.append(j)
+    for j in (int(i[1].split('-')[0]), int(i[1].split('-')[1])):
+        assignment2.append(j)
+    if (assignment1[0] <= assignment2[0]) and (assignment1[1] >= assignment2[1]):
+        count+=1
+    elif (assignment1[0] >= assignment2[0]) and (assignment1[1] <= assignment2[1]):
+        count+=1
+
+print(count)
