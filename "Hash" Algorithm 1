@@ -1,4 +1,6 @@
-# I don't know anything about cryptography but I thought this would make a fun little project. I also know this isn't technically considered hashing, as it needs both a phrase and a key, but still just a good way to build general pytohn skill.
+# I don't know anything about cryptography but I thought this would make a fun little project. I also know this isn't technically considered hashing, as it needs both a phrase and a key, but still just a good way to build general python skill.
+
+# Besides the need for a key, I'm also aware a hashing algorithim is supposed to cascade, and this does, at best, a mediocre job doing so. Still fun!!
 
 import string
 import statistics
