@@ -1,0 +1,5 @@
+# I know this problem from a math class. We have to make 40 steps to reach the endpoint no matter what, the only difference between paths is which of those 40 steps are going in a certain direction. The question is asking for the number of different ways you can choose 20 out of 40
+
+import math
+
+print(math.factorial((40))/(math.factorial(20)**2))
