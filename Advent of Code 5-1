@@ -1,0 +1,46 @@
+crates = open('/Users/nicostuart/Documents/Crates.txt', 'r').read().split("\n")
+
+rows = []
+columns = []
+
+for row in crates:
+    row = list(row)
+    temprow = []
+    for j in range(1, len(row), 4):
+        temprow.append(row[j])
+    rows.insert(0, temprow)
+
+for i in range(0, len(rows)+1):
+    tempcol = []
+    for j in range(0, len(rows[0]) - 1):
+        if rows[j][i] != ' ':
+            tempcol.append(rows[j][i])
+    columns.append(tempcol)
+
+
+cratemoves = []
+tempcratemoves = open('/Users/nicostuart/Documents/CrateMoves.txt', 'r').read().split("\n")
+
+for indmoves in tempcratemoves:
+    indmoves = list(indmoves)
+    justnumbers = []
+    for char in indmoves:
+        if char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+            justnumbers.append(int(char))
+        if len(justnumbers) == 4:
+            justnumbers[0] = int(str(justnumbers[0]) + str(justnumbers[1]))
+            justnumbers.pop(1)
+    cratemoves.append(justnumbers)
+
+for moveset in cratemoves:
+    print(moveset)
+    for _ in range(0, moveset[0]):
+        columns[moveset[2] - 1].append(columns[moveset[1] - 1][-1])
+        columns[moveset[1] - 1].pop(-1)
+    print(columns)
+
+final=''
+for x in columns:
+    final+=x[-1]
+
+print(final)
