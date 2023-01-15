@@ -33,11 +33,9 @@ for indmoves in tempcratemoves:
     cratemoves.append(justnumbers)
 
 for moveset in cratemoves:
-    print(moveset)
     for _ in range(0, moveset[0]):
         columns[moveset[2] - 1].append(columns[moveset[1] - 1][-1])
         columns[moveset[1] - 1].pop(-1)
-    print(columns)
 
 final=''
 for x in columns:
