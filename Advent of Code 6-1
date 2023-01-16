@@ -1,0 +1,14 @@
+signal=list(open('/Users/nicostuart/Documents/ElfCommunicate.txt', 'r').read())
+
+startseq=[]
+t=0
+
+for i in range(4,len(signal)):
+    for j in range(0,3):
+        if signal[i-j] not in startseq:
+            startseq.append(signal[i-j])
+        else:
+            startseq=[]
+        if len(startseq) == 4:
+            print(i+1)
+            exit()
