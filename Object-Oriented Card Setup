@@ -1,0 +1,39 @@
+import random
+
+class card:
+    def __init__(self,  value, suit):
+        self.suit=suit
+        self.value=value
+
+    def check(self):
+        return str(self.value)+' of '+str(self.suit)
+
+
+class deck:
+    def __init__(self):
+        self.cards=[]
+        for i in ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']:
+            for j in ['Spades', 'Hearts', 'Clubs', 'Diamonds']:
+                self.cards.append(card(i,j))
+
+    def shuffle(self):
+        tempx = []
+        for _ in range(0, len(self.cards)):
+            choice = random.choice(self.cards)
+            tempx.append(choice)
+            self.cards.remove(choice)
+        self.cards=tempx
+
+    def fulldeck(self):
+        return self.cards
+
+    def deal(self):
+        topcard=self.cards[0]
+        self.cards.pop(0)
+        return topcard
+
+    def reset(self):
+        self.cards=[]
+        for i in ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']:
+            for j in ['Spades', 'Hearts', 'Clubs', 'Diamonds']:
+                self.cards.append(card(i, j))
