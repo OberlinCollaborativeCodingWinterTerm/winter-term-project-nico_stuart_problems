@@ -1,0 +1,29 @@
+import random
+
+tri=list(open('/Users/nicostuart/Documents/numtriangle.txt', 'r').read().split("\n"))
+
+for i in range(0,len(tri)):
+    tri[i]=tri[i].split(" ")
+
+setpaths=[]
+
+while len(setpaths) < (2**(len(tri)-1))-128:
+    trypath=[]
+    x=0
+    for i in range(0,len(tri)):
+        trypath.append(int(tri[i][x]))
+        x+=random.randint(0,1)
+    if trypath not in setpaths:
+        setpaths.append(trypath)
+        print(len(setpaths))
+
+print(setpaths)
+
+for i in range(0,len(setpaths)):
+    for _ in range(0,len(setpaths[i])-1):
+        setpaths[i][0]+=setpaths[i].pop(-1)
+
+setpaths.sort()
+print(setpaths[-1])
+
+#this is wildly inefficient, and incorrect a small portion of the time (due to -128 in line 10). Does not scale well to bigger arrays but fun little pathfinding project regardless
