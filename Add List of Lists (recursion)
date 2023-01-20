@@ -1,9 +1,0 @@
-def addlistof(n):
-    if len(n)==1 and type(n[0])==int:
-        return n[0]
-    if len(n) == 1 and type(n[0]) == list:
-        return addlistof(n[0])
-    if len(n) > 1 and type(n[0])==list:
-        return addlistof(n[0])+addlistof(n[1:])
-    if len(n) > 1 and type(n[0])==int:
-        return n[0]+addlistof(n[1:])
