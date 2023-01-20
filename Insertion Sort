@@ -1,0 +1,9 @@
+def insertsort(array):
+    for j in range(0,len(array)-1):
+        for i in range(0,j+1):
+            if array[j-i] > array[j+1-i]:
+                (array[j-i], array[j+1-i]) = (array[j-i+1] , array[j-i])
+
+
+#coded from a step-by-step description of the algorithim
+#time complexity O(n^2)
