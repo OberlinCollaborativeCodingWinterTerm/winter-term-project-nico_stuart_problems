@@ -1,0 +1,51 @@
+#this code works on the small example. it does not get the right answer for the actual problem. i'm not fixing it, sorry dawg
+#also if you're checking to see I've been working i did a lot of recursion practice today but didn't have anything worth putting in the github
+
+jumble = open('/Users/nicostuart/Documents/adventdirectories.txt', 'r').read().split("\n")
+jumble.append('$ cd ..')
+large=[]
+
+for i in range(1,len(jumble)):
+    if jumble[i-1].split(" ")[1] == 'cd':
+        contents=[jumble[i-1].split(" ")[2]]
+    if jumble[i] == "$ ls":
+        j=1
+        while True:
+            if i+j < len(jumble):
+                if str(jumble[i+j])[0] != "$":
+                    contents.append(jumble[i+j])
+                    j+=1
+                else:
+                    large.append(contents)
+                    break
+            else:
+                break
+
+
+
+#this is bad code for lots of reasons. particularly problematic is the outermost loop. sorry!
+for _ in range(10):
+    for dir in large:
+        for item in range(1,len(dir)):
+            if not (list(dir[item])[0]).isdigit():
+                for i in large:
+                    if i[0] == dir[item].split(' ')[1]:
+                        dir.pop(item)
+                        for k in range(1,len(i)):
+                            dir.append(i[k])
+
+for dir in large:
+    dir.append(0)
+
+for dir in large:
+    for item in range(0,len(dir)-1):
+        if (list(dir[item])[0]).isdigit():
+            dir[-1]+=int(dir[item].split(" ")[0])
+
+output=0
+
+for dir in large:
+    if dir[-1] <= 100000:
+        output+=dir[-1]
+
+print(output)
