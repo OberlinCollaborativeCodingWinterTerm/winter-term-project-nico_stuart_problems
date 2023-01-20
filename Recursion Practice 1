@@ -15,3 +15,10 @@ def power(base, exp):
         return(base)
     else:
         return power(base*base, exp-1)
+
+
+def sumupto(n):
+    if n==0:
+        return 0
+    else:
+        return n+sumupto(n-1)
