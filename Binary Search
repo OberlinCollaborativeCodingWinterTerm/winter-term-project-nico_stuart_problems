@@ -1,0 +1,18 @@
+#practice for recursion. included an iterative search algo to show the difference in speed (except my iterative version runs faster because my binary search kinda sucks
+#assumes list is sorrted
+
+def binarysearch(lis, x):
+    if len(lis)==1 and lis[0] != x:
+        return 'not in'
+    if lis[len(lis)//2] > x:
+        return binarysearch(lis[:(len(lis)//2)],x)
+    elif lis[len(lis) // 2] < x:
+        return binarysearch(lis[(len(lis)//2):],x)
+    elif lis[len(lis)//2] == x:
+        return 'in'
+
+def slowcheck(lis, x):
+    for i in range(0,len(lis)):
+        if lis[i]==x:
+            return 'in 2'
+    return 'not in 2'
