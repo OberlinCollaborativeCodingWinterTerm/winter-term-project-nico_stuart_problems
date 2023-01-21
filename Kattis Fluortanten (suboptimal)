@@ -1,0 +1,23 @@
+inputs=[]
+
+for i in range(0,2):
+    inputs.append(input().split(' '))
+    for j in range(0,len(inputs[i])):
+        inputs[i][j]=int(inputs[i][j])
+
+
+inputs[1].remove(0)
+inputs=inputs[1]
+
+totallist=[]
+
+for i in range(0,len(inputs)+1):
+    test = inputs.copy()
+    test.insert(i, 0)
+    total=0
+    for j in range(0,len(test)):
+        total+=((j+1)*test[j])
+    totallist.append(total)
+
+totallist.sort()
+print(totallist[-1])
