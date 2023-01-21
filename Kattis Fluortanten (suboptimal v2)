@@ -1,0 +1,28 @@
+inputs=[]
+
+for i in range(0,2):
+    inputs.append(input().split(' '))
+    for j in range(0,len(inputs[i])):
+        inputs[i][j]=int(inputs[i][j])
+
+
+inputs[1].remove(0)
+inputs=inputs[1]
+
+totallist={}
+ans=-1000000000000
+
+for i in range(0,len(inputs)):
+    totallist.update({i:[(i+1)*inputs[i], (i+2)*inputs[i]]})
+
+for i in range(0,len(inputs)+1):
+    score=0
+    for j in range(0, len(inputs)):
+        if j > i-1:
+            score+=totallist[j][1]
+        else:
+            score+=totallist[j][0]
+    if score > ans:
+        ans=score
+
+print(ans)
