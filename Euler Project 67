@@ -1,0 +1,18 @@
+#a much improved version of my project 18
+
+tri=list(open('/Users/nicostuart/Documents/numtriangle.txt', 'r').read().split("\n"))
+
+for i in range(0,len(tri)):
+    tri[i]=tri[i].split(" ")
+    for j in range(0,len(tri[i])):
+        tri[i][j]=int(tri[i][j])
+
+
+for i in range(len(tri)-2,-1,-1):
+    for j in range(0,i+1):
+        if tri[i+1][j] > tri[i+1][j+1]:
+            tri[i][j]+= tri[i+1][j]
+        else:
+            tri[i][j]+= tri[i+1][j+1]
+
+print(tri[0][0])
