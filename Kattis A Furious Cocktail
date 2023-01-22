@@ -1,0 +1,16 @@
+xxx=input().split(' ')
+potioncount=int(xxx[0])
+drinktime=int(xxx[1])
+effectimes=[]
+
+for i in range(0,potioncount):
+    effectimes.append(int(input()))
+
+effectimes.sort(reverse=True)
+
+for i in range(0,potioncount):
+    if effectimes[i] <= drinktime*(potioncount-i-1):
+        print('NO')
+        exit()
+
+print('YES')
