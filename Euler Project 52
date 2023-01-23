@@ -1,0 +1,16 @@
+def samedigits(x, y):
+    x=list(str(x))
+    x.sort()
+    y=list(str(y))
+    y.sort()
+    if x == y:
+        return True
+    else:
+        return False
+
+t=2
+while True:
+    t+=1
+    if samedigits(t, t*2) and samedigits(t, t*3) and samedigits(t, t*4) and samedigits(t, t*5) and samedigits(t, t*6):
+        print(t)
+        exit()
