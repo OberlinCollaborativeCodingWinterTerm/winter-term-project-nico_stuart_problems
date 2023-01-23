@@ -1,0 +1,36 @@
+import string
+noisestxt = ['clank', 'bong', 'click', 'tap', 'poing', 'clonk', 'clack', 'ping', 'tip', 'cloing', 'tic', 'cling', 'bing', 'pong', 'clang', 'pang', 'clong', 'tac', 'boing', 'boink', 'cloink', 'rattle', 'clock', 'toc', 'clink', 'tuc']
+
+letternoises={}
+for i in range(0,len(noisestxt)):
+    letternoises.update({noisestxt[i]:(string.ascii_lowercase)[i]})
+
+letternoises.update({'whack':' '})
+letternoises.update({'dink':'XX'})
+letternoises.update({'thumb':'XX'})
+letternoises.update({'pop':'XX'})
+letternoises.update({'bump':'XX'})
+
+
+final=[]
+capslock=False
+shift=False
+for i in range(0,int(input())):
+    t=input()
+    if letternoises[t]=='XX':
+        if t == 'pop' and len(final) >= 1:
+            final = (final)[:-1]
+            continue
+        if t == 'bump' or t=='dink' or t=='thumb':
+            if capslock == False:
+                capslock=True
+            else:
+                capslock=False
+            continue
+
+    if capslock:
+        final.append(letternoises[t].upper())
+    else:
+        final.append(letternoises[t])
+
+print(''.join(final))
