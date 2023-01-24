@@ -1,0 +1,20 @@
+line1=input().split(' ')
+peoplecount=int(line1[0])
+eventcount=int(line1[1])
+
+events=[]
+for i in range(0,eventcount):
+    events.append(input())
+
+people={}
+for i in range(1,peoplecount+1):
+    people.update({i:0})
+
+for i in range(0,len(events)):
+    if list(events[i])[0]=='S':
+        people[int(events[i].split(' ')[1])]=int(events[i].split(' ')[2])
+    if list(events[i])[0]=='P':
+        print(int(people[int(events[i].split(' ')[1])]))
+    if list(events[i])[0]=='R':
+        for j in range(1,len(people)+1):
+            people[j]=int(events[i].split(' ')[1])
