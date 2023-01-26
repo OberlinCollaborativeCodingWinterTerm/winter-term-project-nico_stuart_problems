@@ -1,0 +1,155 @@
+import pygame
+import math
+from pygame.locals import (
+    K_w,
+    K_s,
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+    KEYUP,
+)
+
+screen_width=200
+screen_height=200
+pygame.init()
+x=100
+screen = pygame.display.set_mode((screen_width,screen_height))
+
+running = True
+
+class paddle:
+    def __init__(self, startx, starty):
+        self.x=startx
+        self.y=starty
+        self.surf=pygame.Surface((10, 30))
+        self.surf.fill((0, 0, 0))
+        self.vertspeed=0
+
+    def up(self):
+        if self.y >0:
+            self.vertspeed-= 0.1
+            self.y+=self.vertspeed
+
+
+    def down(self):
+        if self.y < screen_height-30:
+            self.vertspeed += 0.1
+            self.y += self.vertspeed
+
+class ball:
+    def __init__(self, startx, starty):
+        self.x = startx-10
+        self.y = starty-10
+        self.surf = pygame.Surface((20, 20))
+        self.surf.fill((255,255,255))
+        pygame.draw.circle(self.surf, (0,0,0), (10,10), (10))
+        self.moveangle=300
+
+    def anglefix(self):
+        while self.moveangle > 360:
+            self.moveangle-=360
+        while self.moveangle < 0:
+            self.moveangle+=360
+
+    def move(self,speed,pad1y,pad2y):
+        self.anglefix()
+        self.dx=math.cos(math.radians(self.moveangle))
+        self.dy=math.sin(math.radians(self.moveangle))
+        if self.y < 0:
+            print('E1')
+            self.moveangle=360-self.moveangle
+            self.y=0.1
+            return speed
+        if self.y > screen_height-20:
+            print('E2')
+            self.moveangle=360-self.moveangle
+            self.y= 179.9
+            return speed
+
+        if self.x < 11 and math.floor(pad1y) <= self.y+10 <= math.ceil(pad1y + 30):
+            print('E3')
+            self.moveangle=((pad1y+15)-(self.y+10))*5
+            return speed+0.1
+
+        if self.x > 169 and math.floor(pad2y) <= self.y+10 <= math.ceil(pad2y + 30):
+            self.moveangle=180+((pad2y+15)-(self.y+10))*5
+            print([self.x,self.y])
+            return speed+0.1
+
+        if self.x < 0:
+            return 'LOSS'
+        if self.x > 180:
+            return 'LOSS'
+
+        self.x+=self.dx*speed
+        self.y-=self.dy*speed
+        return speed
+
+
+
+
+player1=paddle(0,(screen_height-30)/2)
+player2=paddle(screen_width-10,(screen_height-30)/2)
+ball1=ball(100,100)
+speed_return=1
+while running:
+    t=ball1.move(speed_return, player1.y, player2.y)
+    if t == 'LOSS':
+        print('LOSS')
+        exit()
+    else:
+        speed_return=t
+
+
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_DOWN:
+                x+=1
+            if event.key == K_ESCAPE:
+                running = False
+            if event.key == K_w:
+                player1.vertspeed = -0.5
+            if event.key == K_s:
+                player1.vertspeed = 0.5
+            if event.key == K_UP:
+                player2.vertspeed = -0.5
+            if event.key == K_DOWN:
+                player2.vertspeed = 0.5
+
+
+
+        elif event.type == QUIT:
+            running = False
+
+        if event.type == KEYUP:
+            if event.key == K_w:
+                player1.vertspeed=0
+            if event.key == K_s:
+                player1.vertspeed=0
+            if event.key == K_UP:
+                player2.vertspeed = -0.5
+            if event.key == K_DOWN:
+                player2.vertspeed = 0.5
+
+
+
+    pressed_keys = pygame.key.get_pressed()
+    if pressed_keys[K_w]:
+        player1.up()
+    if pressed_keys[K_s]:
+        player1.down()
+    if pressed_keys[K_UP]:
+        player2.up()
+    if pressed_keys[K_DOWN]:
+        player2.down()
+
+    screen.fill((255, 255, 255))
+
+    screen.blit(ball1.surf, (ball1.x, ball1.y))
+    screen.blit(player1.surf, (player1.x, player1.y))
+    screen.blit(player2.surf, (player2.x, player2.y))
+    pygame.display.flip()
