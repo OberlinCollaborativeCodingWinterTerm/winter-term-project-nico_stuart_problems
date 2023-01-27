@@ -1,0 +1,23 @@
+if input('Encypt or Decrypt? ').lower() in ['e', 'encrypt']:
+    plaintext=list(input('Please provide the text you want encrypted '))
+    key=list(input('Please provide your encryption key '))
+    keyval=0
+
+    for i in key:
+        keyval+=ord(i)
+    keyval=keyval%64
+
+    for i in range(0,len(plaintext)):
+        plaintext[i]=chr(ord(plaintext[i])+keyval)
+    print(''.join(plaintext))
+else:
+    decrypt=list(input('Please provide the text you want decrypted '))
+    key=list(input('Please provide your encryption key '))
+    keyval=0
+
+    for i in key:
+        keyval+=ord(i)
+    keyval=keyval%64
+    for i in range(0, len(decrypt)):
+        decrypt[i] = chr(ord(decrypt[i]) - keyval)
+    print(''.join(decrypt))
