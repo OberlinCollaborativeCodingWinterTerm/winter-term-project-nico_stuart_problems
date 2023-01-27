@@ -1,22 +1,24 @@
 import pygame
 import math
+import time
+
 from pygame.locals import (
     K_w,
     K_s,
     K_UP,
     K_DOWN,
-    K_LEFT,
-    K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
     KEYUP,
 )
+pygame.init()
+pygame.font.init()
+my_font = pygame.font.SysFont('Arial', 30)
+
 
 screen_width=200
 screen_height=200
-pygame.init()
-x=100
 screen = pygame.display.set_mode((screen_width,screen_height))
 
 running = True
@@ -60,31 +62,28 @@ class ball:
         self.dx=math.cos(math.radians(self.moveangle))
         self.dy=math.sin(math.radians(self.moveangle))
         if self.y < 0:
-            print('E1')
             self.moveangle=360-self.moveangle
             self.y=0.1
             return speed
         if self.y > screen_height-20:
-            print('E2')
             self.moveangle=360-self.moveangle
             self.y= 179.9
             return speed
 
         if self.x < 11 and math.floor(pad1y) <= self.y+10 <= math.ceil(pad1y + 30):
-            print('E3')
             self.moveangle=((pad1y+15)-(self.y+10))*5
+            self.x = 11.5
             return speed+0.1
 
         if self.x > 169 and math.floor(pad2y) <= self.y+10 <= math.ceil(pad2y + 30):
             self.moveangle=180+((pad2y+15)-(self.y+10))*5
-            print([self.x,self.y])
+            self.x=168.5
             return speed+0.1
 
         if self.x < 0:
-            return 'LOSS'
+            return 'LOSS1'
         if self.x > 180:
-            return 'LOSS'
-
+            return 'LOSS2'
         self.x+=self.dx*speed
         self.y-=self.dy*speed
         return speed
@@ -96,19 +95,39 @@ player1=paddle(0,(screen_height-30)/2)
 player2=paddle(screen_width-10,(screen_height-30)/2)
 ball1=ball(100,100)
 speed_return=1
+score=[0,0]
+
+def displayscore():
+    text_surface1 = my_font.render(str(score[0]), False, (0, 0, 0))
+    text_surface2= my_font.render(str(score[1]), False, (0, 0, 0))
+    screen.fill((255, 255, 255))
+    screen.blit(text_surface1, (0, 90))
+    screen.blit(text_surface2, (180, 90))
+    pygame.display.flip()
+    time.sleep(1)
+
 while running:
-    t=ball1.move(speed_return, player1.y, player2.y)
-    if t == 'LOSS':
-        print('LOSS')
-        exit()
+    t = ball1.move(speed_return, player1.y, player2.y)
+    if t == 'LOSS1':
+        score[1]+=1
+        player1 = paddle(0, (screen_height - 30) / 2)
+        player2 = paddle(screen_width - 10, (screen_height - 30) / 2)
+        ball1 = ball(100, 100)
+        speed_return = 1
+        displayscore()
+    elif t == 'LOSS2':
+        score[0]+=1
+        player1=paddle(0,(screen_height-30)/2)
+        player2=paddle(screen_width-10,(screen_height-30)/2)
+        ball1=ball(100,100)
+        speed_return=1
+        displayscore()
     else:
         speed_return=t
 
 
     for event in pygame.event.get():
         if event.type == KEYDOWN:
-            if event.key == K_DOWN:
-                x+=1
             if event.key == K_ESCAPE:
                 running = False
             if event.key == K_w:
