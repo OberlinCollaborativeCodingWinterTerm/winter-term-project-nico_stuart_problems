@@ -1,0 +1,31 @@
+import requests
+from bs4 import BeautifulSoup
+import random
+
+def scraper(x):
+    response = requests.get(url=x)
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+
+    allLinks = soup.find(id="bodyContent").find_all("a")
+    final=[]
+    for link in allLinks:
+        if 'href' in str(link):
+            if link['href'][:5] == '/wiki':
+                if '(' in link['href']:
+                    final.append('https://en.wikipedia.org'+str(link['href'][:(link['href'].index('('))]))
+                else:
+                    final.append('https://en.wikipedia.org'+str(link['href']))
+
+    random.shuffle(final)
+    return final
+
+
+links=[]
+for i in scraper('https://en.wikipedia.org/wiki/Education'):
+    for j in scraper(i):
+        if j not in links:
+            links.append(j)
+            if len(links)>10000:
+                print(links)
+                exit()
