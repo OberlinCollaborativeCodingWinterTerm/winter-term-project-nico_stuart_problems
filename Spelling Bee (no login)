@@ -29,8 +29,7 @@ driver.find_element(By.LINK_TEXT, "LOG IN").click()
 
 
 x=0
-while x <6bet0:
-    #login timer. LOG IN!!
+while x <0:
     x+=1
     time.sleep(1)
     print(x)
