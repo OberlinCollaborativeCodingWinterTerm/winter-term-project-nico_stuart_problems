@@ -11,7 +11,7 @@ for i in d:
 
 letteroptions=['j', 'r', 't', 'i', 'a', 'o', 'n']
 words=[]
-for i in range(4,11):
+for i in range(4,9):
     for j in itertools.product(letteroptions, repeat=i):
         if ''.join(j) in endict and 'n' in j:
             words.append(''.join(j))
@@ -29,7 +29,7 @@ driver.find_element(By.LINK_TEXT, "LOG IN").click()
 
 
 x=0
-while x <80:
+while x <60:
     x+=1
     time.sleep(1)
     print(x)
