@@ -1,3 +1,5 @@
+#this requires a manual login, captcha bypass, and a second login. I had the first login automated but then I kept hitting catchpa
+
 import itertools
 d = open('diction.txt', 'r').read().split('\n')
 d.pop(0) ; d.pop(-1)
@@ -9,7 +11,7 @@ for i in d:
 
 letteroptions=['j', 'r', 't', 'i', 'a', 'o', 'n']
 words=[]
-for i in range(4,9):
+for i in range(4,11):
     for j in itertools.product(letteroptions, repeat=i):
         if ''.join(j) in endict and 'n' in j:
             words.append(''.join(j))
@@ -23,6 +25,15 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
 driver.get(url='https://www.nytimes.com/puzzles/spelling-bee')
+driver.find_element(By.LINK_TEXT, "LOG IN").click()
+
+
+x=0
+while x <6bet0:
+    #login timer. LOG IN!!
+    x+=1
+    time.sleep(1)
+    print(x)
 
 driver.find_element(By.CSS_SELECTOR, "button[class='pz-moment__button primary']").click()
 time.sleep(2)
