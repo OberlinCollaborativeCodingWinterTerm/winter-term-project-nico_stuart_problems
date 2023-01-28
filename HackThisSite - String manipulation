@@ -1,0 +1,36 @@
+#challenge here https://www.hackthissite.org/missions/prog/12/
+#selenium needed because input window is too short to copy and paste
+
+def stringdoer(x):
+    s=list(x)
+    primesum=0
+    compsum=0
+    for i in s:
+        if i in ['2', '3', '5', '7']:
+            primesum+=int(i)
+        elif i in ['4', '6', '8', '9']:
+            compsum+=int(i)
+
+    prod=compsum*primesum
+    final=''
+    i=0
+    while len(final) < 25:
+        if s[i] not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']:
+            final+=chr(ord(s[i])+1)
+        i+=1
+    return(final+str(prod))
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+
+driver = webdriver.Chrome()
+driver.get(url='https://www.hackthissite.org/missions/prog/12/')
+driver.find_element(By.CLASS_NAME, "login[name='username']").send_keys('nicos2')
+driver.find_element(By.CLASS_NAME, "login[name='password']").send_keys('$RzNwUv)83aY4q@')
+driver.find_element(By.CLASS_NAME, "submit-button").click()
+strbox=driver.find_element(By.XPATH, '//input[@type="text"]').get_attribute('value')
+ans=stringdoer(strbox)
+driver.find_element(By.NAME, 'solution').send_keys(ans)
+driver.find_element(By.NAME, 'solution').send_keys(Keys.ENTER)
