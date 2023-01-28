@@ -1,0 +1,35 @@
+import itertools
+d = open('diction.txt', 'r').read().split('\n')
+d.pop(0) ; d.pop(-1)
+endict={}
+for i in d:
+    endict.update({str(i[3:(i.index(":")-1)]):1})
+
+
+
+letteroptions=['j', 'r', 't', 'i', 'a', 'o', 'n']
+words=[]
+for i in range(4,9):
+    for j in itertools.product(letteroptions, repeat=i):
+        if ''.join(j) in endict and 'n' in j:
+            words.append(''.join(j))
+
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+
+driver = webdriver.Chrome()
+driver.get(url='https://www.nytimes.com/puzzles/spelling-bee')
+
+driver.find_element(By.CSS_SELECTOR, "button[class='pz-moment__button primary']").click()
+time.sleep(2)
+elem = driver.switch_to.active_element
+
+for i in words:
+    elem.send_keys(i)
+    elem.send_keys(Keys.RETURN)
+
+time.sleep(10)
