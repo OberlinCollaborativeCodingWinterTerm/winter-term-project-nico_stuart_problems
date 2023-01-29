@@ -1,0 +1,22 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get(url='https://testdrive-archive.azurewebsites.net/Performance/Sudoku/Default.html')
+boardcells=driver.find_elements(By.CLASS_NAME, "boardCell")
+
+tablevalues_straight=[]
+for element in boardcells:
+    tablevalues_straight.append(element.text)
+
+game=[]
+for i in range(0,81,9):
+    game.append(tablevalues_straight[i:i+9])
+print(game)
+
+
+
+#for box in openboxes:
+#    parent_element=box.find_element(By.XPATH, '..')
+#    parent_id = parent_element.get_attribute("id")
+#    print(parent_id)
