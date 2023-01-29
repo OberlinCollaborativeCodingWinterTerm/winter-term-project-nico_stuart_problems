@@ -1,25 +1,16 @@
 #program to simulate optimal stopping. could potentially incoorperate ML to choose an ideal stopping point?
 
-lowstop=0
-highstop=100
-increment=1
+lowstop=20
+highstop=45
+increment=0.01
 trials=10000
 
 import random
+import copy
 import matplotlib.pyplot as plt
 
-
-
-xaxis=[lowstop]
-current_number = lowstop
-while current_number <= highstop:
-    xaxis.append(current_number)
-    current_number += increment
-yaxis=[0]
-for i in range(1,int(((highstop-lowstop)/increment)+1)):
-    yaxis.append(0)
-print(xaxis)
-print(yaxis)
+yaxis=[]
+xaxis=[]
 straight=[]
 for i in range(0,100):
         straight.append(i)
@@ -28,22 +19,18 @@ def makeset():
     random.shuffle(straight)
     return straight
 
-makeset()
-score=0
 stop=lowstop
-axisindex=0
+data=[]
+
 while stop < highstop:
     stop+=increment
     score = 0
     for _ in range(0,trials):
-        testset=makeset()
+        testset=copy.deepcopy(makeset())
         top=0
-        for i in range(0,round(stop)):
-            if testset[i] > top:
-                top=testset[i]
+        top=max(testset[0:round(stop)])
         for i in range(round(stop),100):
-            if i == 99:
-                   if testset[i] == 99:
+            if i == 99 and testset[i] == 99:
                     score+=1
                     break
             if testset[i] > top:
@@ -51,17 +38,12 @@ while stop < highstop:
                     score += 1
                 break
     print(stop)
-    yaxis[axisindex]=score
-    axisindex+=1
-    
+    xaxis.append(round(stop)),
+    yaxis.append(score)
 
-yaxis.pop(-1)
-xaxis.pop(-1)
 
-while len(xaxis) > len(yaxis):
-    xaxis.pop(-1)
-while len(xaxis) < len(yaxis):
-    yaxis.pop(-1)
-plt.plot(xaxis, yaxis)
+plt.scatter(xaxis,yaxis)
 plt.show()
 
+print(xaxis)
+print(yaxis)
