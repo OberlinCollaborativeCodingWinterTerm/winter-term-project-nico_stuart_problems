@@ -1,0 +1,34 @@
+import requests
+from bs4 import BeautifulSoup
+import statistics as stats
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+    'Referer': 'https://www.google.com',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
+}
+
+response = requests.get(url='https://www.ebay.com/sch/i.html?_from=R40&_nkw=macbook+air+m1+2020+new&_sacat=0&LH_TitleDesc=0&LH_Complete=1&LH_Sold=1&RAM%2520Size=8%2520GB&SSD%2520Capacity=256%2520GB&Features=Touch%2520ID%7CBacklit%2520Keyboard&Connectivity=DisplayPort%7CUSB%252DC%7CUSB%25203%252E1&rt=nc&Most%2520Suitable%2520For=Casual%2520Computing&_dcat=111422', headers=headers)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+
+pricelist=[]
+prices = soup.find_all(class_='s-item__price')
+for price in prices:
+    price=str(price)
+    if ' ITALIC' in price:
+        price=price[7:]
+
+    tempprice=(list(price[52:60]))
+    if len(tempprice) > 0:
+        if tempprice[-1] == '/':
+            tempprice = tempprice[:-2]
+    if ',' in tempprice:
+        tempprice.remove(',')
+    if len(tempprice) > 0:
+        pricelist.append(float((''.join(tempprice))))
+
+print(stats.mean(pricelist))
